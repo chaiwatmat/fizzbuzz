@@ -7,10 +7,10 @@ namespace Chaiwatmat.Fizzbuzz.Test
     [TestFixture]
     public class FizzbuzzTest
     {
-        private Fizzbuzz _fizzbuzz;
+        private FizzbuzzManager _fizzbuzz;
 
         public FizzbuzzTest(){
-            _fizzbuzz = new Fizzbuzz();
+            _fizzbuzz = new FizzbuzzManager();
         }
 
         [TestCase(1, "1")]
