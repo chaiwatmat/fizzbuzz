@@ -1,10 +1,11 @@
-using System;
-
 namespace Chaiwatmat.Fizzbuzz
 {
     public interface INumberRule
     {
-        bool IsMatchRule();
+        int Priority { get; }
+
+        bool IsMatch(int number);
+
         string GetResult();
     }
 }

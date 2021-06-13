@@ -1,21 +1,18 @@
-using System;
-
 namespace Chaiwatmat.Fizzbuzz
 {
     public class StringRule : INumberRule
     {
         private int _number;
 
-        public StringRule(int number){
-            _number = number;
-        }
+        public int Priority => 1;
 
-        public bool IsMatchRule(){
+        public bool IsMatch(int number)
+        {
+            _number = number;
+
             return true;
         }
 
-        public string GetResult(){
-            return _number.ToString();
-        }
+        public string GetResult() => _number.ToString();
     }
 }

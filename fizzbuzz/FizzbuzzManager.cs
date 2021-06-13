@@ -1,29 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Chaiwatmat.Fizzbuzz
 {
     public class FizzbuzzManager
     {
-        public string GetResult(int number){
-            var rules = new List<INumberRule>{
-                new FizzBuzzWuzzRule(number),
-                new BuzzWuzzRule(number),
-                new FizzWuzzRule(number),
-                new FizzBuzzRule(number),
-                new WuzzRule(number),
-                new BuzzRule(number),
-                new FizzRule(number),
-                new StringRule(number)
-            };
+        public string GetResult(int number)
+        {
+            var rules = GetRules();
 
-            foreach(var rule in rules){
-                if(rule.IsMatchRule()){
-                    return rule.GetResult();
-                }
+            foreach (var rule in rules)
+            {
+                if (!rule.IsMatch(number)) continue;
+
+                return rule.GetResult();
             }
 
             return "";
+        }
+
+        private static IEnumerable<INumberRule> GetRules()
+        {
+            return Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(x => typeof(INumberRule).IsAssignableFrom(x) && x.IsClass)
+                .Select(x => (INumberRule)Activator.CreateInstance(x))
+                .OrderByDescending(x => x.Priority);
         }
     }
 }

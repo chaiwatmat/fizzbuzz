@@ -1,21 +1,11 @@
-using System;
-
 namespace Chaiwatmat.Fizzbuzz
 {
     public class WuzzRule : INumberRule
     {
-        private int _number;
+        public int Priority => 7;
 
-        public WuzzRule(int number){
-            _number = number;
-        }
+        public bool IsMatch(int number) => number % 7 == 0;
 
-        public bool IsMatchRule(){
-            return _number % 7 == 0;
-        }
-
-        public string GetResult(){
-            return "Wuzz";
-        }
+        public string GetResult() => "Wuzz";
     }
 }
